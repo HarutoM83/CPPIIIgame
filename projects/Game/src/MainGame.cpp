@@ -62,9 +62,20 @@ void MainGame::createMap()
         make_unique<AABBCollider>());
     floor->transform->localScale = Vector3(5, 1, 5);
     floor->transform->localPosition = Vector3(0, -0.5f, 0);
+    // 床
+    auto rb1 = make_unique<Rigidbody>();
+    rb1->gravityScale = 0;
+    rb1->mass = numeric_limits<float>::infinity();
+    auto floor1 = make_unique<GameObject>(u8"床",
+        CubeRenderer::create<VertexPNT>(floorMat),
+        move(rb1),
+        make_unique<AABBCollider>());
+    floor1->transform->localScale = Vector3(5, 1, 5);
+    floor1->transform->localPosition = Vector3(5, -0.5f, 0);
 
     // 親をマップにする
     Transform::SetParent(move(floor), map->transform);
+    Transform::SetParent(move(floor1), map->transform);
 
     // 壁
     rb = make_unique<Rigidbody>();
@@ -79,6 +90,15 @@ void MainGame::createMap()
 
     // 親をマップにする
     Transform::SetParent(move(wall), map->transform);
+
+    // コインオブジェクトを作成
+    auto coin = make_unique<GameObject>(u8"Coin",
+        SphereRenderer::create<VertexPT>(u8"resource/Albedo.hlsl", u8"resource/wall.png"),
+        make_unique<Rigidbody>(),
+        make_unique<SphereCollider>(Vector3(0, -0.1f, 0), 0.4f)
+    );
+    coin->transform->localPosition = Vector3(2, 1, 0);
+    Transform::SetParent(move(coin), map->transform);
 
     mapObj = move(map);
 }

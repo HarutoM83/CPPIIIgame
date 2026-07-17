@@ -30,6 +30,7 @@ void Player::OnEnable()
 void Player::Update()
 {
     const float moveSpeed = 5;
+	const float jumpPower = 5;
 
     // 操作方向
     Vector3 cont;
@@ -66,11 +67,21 @@ void Player::Update()
     Vector3 velocity = cont * moveSpeed * Quaternion::AngleAxis(camAngle, Vector3::up);
     float vAngle = std::atan2(velocity.x, velocity.z) * UniDx::Rad2Deg;
 
+    // ジャンプ
+    if (Input::GetKeyDown(Keyboard::Space))
+    {
+        velocity.y = jumpPower;
+    }
+    else
+    {
+        velocity.y = rb->linearVelocity.y;
+    }
     rb->linearVelocity = velocity;
     if (cont != Vector3::zero)
     {
         rb->rotation = Quaternion::Euler(0, vAngle, 0);
     }
+
 }
 
 
