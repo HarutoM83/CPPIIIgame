@@ -40,15 +40,15 @@ PSInput VS(VSInput vin)
 {
     PSInput Out;
     float4 p = float4(vin.pos.xyz, 1);
-    p = mul(world, p);      // ワールド変換
+    p = mul(p, world);      // ワールド変換
     Out.posW = (float3)p;
 
-    p = mul(view, p);       // ビュー変換
-    p = mul(projection, p); // プロジェクション変換
+    p = mul(p, view);       // ビュー変換
+    p = mul(p, projection); // プロジェクション変換
     Out.posH = p;
 
     float3x3 world3x3 = (float3x3) world;
-    Out.nrmW = mul(world3x3, vin.nrm);
+    Out.nrmW = mul(vin.nrm, world3x3);
 
     return Out;
 }
