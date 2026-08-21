@@ -163,6 +163,28 @@ void MainGame::createMap()
     floor9->transform->localPosition = Vector3(0, -0.5f, -20);
 
 
+    auto rb10 = make_unique<Rigidbody>();
+    rb10->gravityScale = 0;
+    rb10->mass = numeric_limits<float>::infinity();
+    auto floor10 = make_unique<GameObject>(u8"床",
+        CubeRenderer::create<VertexPNT>(floorMat),
+        move(rb10),
+        make_unique<AABBCollider>());
+    floor10->transform->localScale = Vector3(5, 1, 5);
+    floor10->transform->localPosition = Vector3(4, -0.5f, 12);
+
+
+    auto rb11 = make_unique<Rigidbody>();
+    rb11->gravityScale = 0;
+    rb11->mass = numeric_limits<float>::infinity();
+    auto floor11 = make_unique<GameObject>(u8"床",
+        CubeRenderer::create<VertexPNT>(floorMat),
+        move(rb11),
+        make_unique<AABBCollider>());
+    floor11->transform->localScale = Vector3(5, 1, 5);
+    floor11->transform->localPosition = Vector3(-4, -0.5f, 12);
+
+
     // 親をマップにする
     Transform::SetParent(move(floor), map->transform);
     Transform::SetParent(move(floor1), map->transform);
@@ -174,6 +196,8 @@ void MainGame::createMap()
     Transform::SetParent(move(floor7), map->transform);
     Transform::SetParent(move(floor8), map->transform);
     Transform::SetParent(move(floor9), map->transform);
+    Transform::SetParent(move(floor10), map->transform);
+    Transform::SetParent(move(floor11), map->transform);
 
     // 壁
     rb = make_unique<Rigidbody>();
@@ -275,6 +299,39 @@ void MainGame::createMap()
     wall8->transform->localPosition = Vector3(-5, 0.5f, -13);
 
 
+    rb9 = make_unique<Rigidbody>();
+    rb9->gravityScale = 0;
+    rb9->mass = numeric_limits<float>::infinity();
+    auto wall9 = make_unique<GameObject>(u8"壁",
+        CubeRenderer::create<VertexPNT>(wallMat),
+        move(rb9),
+        make_unique<AABBCollider>());
+    wall9->transform->localScale = Vector3(1, 2, 5);
+    wall9->transform->localPosition = Vector3(8, 0.5f, 0);
+
+
+    rb10 = make_unique<Rigidbody>();
+    rb10->gravityScale = 0;
+    rb10->mass = numeric_limits<float>::infinity();
+    auto wall10 = make_unique<GameObject>(u8"壁",
+        CubeRenderer::create<VertexPNT>(wallMat),
+        move(rb10),
+        make_unique<AABBCollider>());
+    wall10->transform->localScale = Vector3(1, 2, 5);
+    wall10->transform->localPosition = Vector3(8, 0.5f, -5);
+
+
+    rb11 = make_unique<Rigidbody>();
+    rb11->gravityScale = 0;
+    rb11->mass = numeric_limits<float>::infinity();
+    auto wall11 = make_unique<GameObject>(u8"壁",
+        CubeRenderer::create<VertexPNT>(wallMat),
+        move(rb11),
+        make_unique<AABBCollider>());
+    wall11->transform->localScale = Vector3(1, 2, 5);
+    wall11->transform->localPosition = Vector3(8, 0.5f, -10);
+
+
     // 親をマップにする
     Transform::SetParent(move(wall), map->transform);
     Transform::SetParent(move(wall1), map->transform);
@@ -285,6 +342,9 @@ void MainGame::createMap()
     Transform::SetParent(move(wall6), map->transform);
     Transform::SetParent(move(wall7), map->transform);
     Transform::SetParent(move(wall8), map->transform);
+    Transform::SetParent(move(wall9), map->transform);
+    Transform::SetParent(move(wall10), map->transform);
+    Transform::SetParent(move(wall11), map->transform);
 
     // コインオブジェクトを作成
     auto coin = make_unique<GameObject>(u8"Coin",
