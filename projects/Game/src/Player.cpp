@@ -15,6 +15,7 @@ using namespace UniDx;
 namespace
 {
     const StringId CoinName = StringId::intern("Coin");
+    const float jumpPower = 5.0f;
 }
 
 
@@ -30,7 +31,6 @@ void Player::OnEnable()
 void Player::Update()
 {
     const float moveSpeed = 5;
-	const float jumpPower = 5;
 
     // 操作方向
     Vector3 cont;

@@ -62,7 +62,8 @@ void MainGame::createMap()
         make_unique<AABBCollider>());
     floor->transform->localScale = Vector3(5, 1, 5);
     floor->transform->localPosition = Vector3(0, -0.5f, 0);
-    // 床
+
+    // 床右
     auto rb1 = make_unique<Rigidbody>();
     rb1->gravityScale = 0;
     rb1->mass = numeric_limits<float>::infinity();
@@ -73,9 +74,21 @@ void MainGame::createMap()
     floor1->transform->localScale = Vector3(5, 1, 5);
     floor1->transform->localPosition = Vector3(5, -0.5f, 0);
 
+    // 床左
+    auto rb2 = make_unique<Rigidbody>();
+    rb2->gravityScale = 0;
+    rb2->mass = numeric_limits<float>::infinity();
+    auto floor2 = make_unique<GameObject>(u8"床",
+        CubeRenderer::create<VertexPNT>(floorMat),
+        move(rb2),
+        make_unique<AABBCollider>());
+    floor2->transform->localScale = Vector3(5, 1, 5);
+    floor2->transform->localPosition = Vector3(-5, -0.5f, 0);
+
     // 親をマップにする
     Transform::SetParent(move(floor), map->transform);
     Transform::SetParent(move(floor1), map->transform);
+    Transform::SetParent(move(floor2), map->transform);
 
     // 壁
     rb = make_unique<Rigidbody>();
